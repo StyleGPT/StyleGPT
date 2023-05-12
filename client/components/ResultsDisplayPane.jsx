@@ -23,7 +23,7 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS }) => {
   return (
     <div>
       <button onClick={loadCSS}>Press me to load CSS!</button>
-      <iframe id="sample-component-frame" src={contentHtml}></iframe>
+      <iframe id="sample-component-frame" src={contentHtml} sandbox></iframe>
     </div>
   );
 };
