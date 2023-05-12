@@ -55,6 +55,10 @@ module.exports = {
         }
       },
       {
+        test: /\.html$/i,
+        loader: 'html-loader'
+      },
+      {
         test: /.(css|scss)$/,
         exclude: /node_modules/,
         use: [
