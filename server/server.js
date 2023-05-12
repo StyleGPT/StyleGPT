@@ -18,6 +18,9 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+// route to handle get requests to '/chatgpt' endpoint
+app.get('/chatgpt', (req, res) => res.sendStatus(200));
+
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
 );
