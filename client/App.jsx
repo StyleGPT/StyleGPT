@@ -12,7 +12,6 @@ const App = () => {
         <QueryEntryForm />
         </div>
       <div>
-        Results and rendering pane can go here
         <ResultsDisplayPane
           contentHtml={'./components/iframe_assets/sample_component.html'}
           contentCSS={'initial_style.css'}
