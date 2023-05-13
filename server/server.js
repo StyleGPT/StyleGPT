@@ -4,6 +4,9 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
+// import chatgptController methods
+const chatgptController = require('./controllers/chatgptController');
+
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
@@ -17,6 +20,9 @@ if (process.env.NODE_ENV === 'production') {
     res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
   });
 }
+
+// route to handle get requests to '/chatgpt' endpoint
+app.get('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
