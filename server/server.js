@@ -1,12 +1,16 @@
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+
 
 const app = express();
 const PORT = 3000;
 
 // import chatgptController methods
 const chatgptController = require('./controllers/chatgptController');
+const { Users } = require('./models/StyleGPTModels');
 
 app.use(express.json());
 
@@ -41,8 +45,16 @@ app.post('/signup', async (req, res) => {
   console.log(`hash: ${hash}`);
   console.log(`username: ${users[0].username}`);
   console.log(`password: ${users[0].password}`);
+<<<<<<< HEAD
   return res.send('user created');
 });
+=======
+  Users.create({username: username, password: hash, apikey: 'testKey'})
+    .then(() => res.send('user created in database'))
+    .catch(err => console.log(err));
+  // return res.send('user created');
+})
+>>>>>>> dev
 
 //route to handle post requests to '/login' endpoint (user logins)
 app.post('/login', async (req, res) => {
