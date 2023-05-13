@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // route to handle get requests to '/chatgpt' endpoint
-//app.get('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
+// app.get('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
 
 // Users array is a test database for storing users - we'll want to replace this with a MongoDB database
 const users = []
