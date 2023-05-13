@@ -12,7 +12,7 @@ const html = `
 
 const htmlString = html.replace(/\n/g, '').replace(/\s+/g, ' ').trim();
 
-const prompt = `generate a CSS rules for each element of this this html to make it raibow colored ${htmlString}`;
+const prompt = `generate CSS rules for each element of this this html to make it look festive ${htmlString}`;
 
 console.log(prompt);
 
