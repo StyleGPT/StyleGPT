@@ -1,7 +1,7 @@
 import React from 'react';
-import './styles.css';
+import './styles.scss';
 import ResultsDisplayPane from './components/ResultsDisplayPane';
-//import 'highlight.js/styles/github.css';
+import './hljs-tokyo-night-dark-custom.css';
 
 const App = () => {
   return (
