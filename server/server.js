@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const express = require('express');
 const path = require('path');
 
@@ -23,6 +24,30 @@ if (process.env.NODE_ENV === 'production') {
 
 // route to handle get requests to '/chatgpt' endpoint
 app.get('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
+
+// Users array is a test database for storing users - we'll want to replace this with a MongoDB database
+const users = [
+  {
+    username: 'username',
+    password: 'password',
+  }
+]
+
+// route to handle post requests to '/signup' endpoint (user signups)
+app.post('/signup', async (req, res) => {
+  const { username, password } = req.body;
+  const hash = await bcrypt.hash(password, 10);
+  users.push({
+    username,
+    password: hash,
+  })
+  console.log(`username: ${username}`);
+  console.log(`password: ${password}`);
+  console.log(`hash: ${hash}`);
+  console.log(`users: ${users}`);
+  res.send('user created');
+})
+
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
