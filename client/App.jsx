@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles.css';
 import ResultsDisplayPane from './components/ResultsDisplayPane';
+//import 'highlight.js/styles/github.css';
 
 const App = () => {
   return (
