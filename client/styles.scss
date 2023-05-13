@@ -1,9 +1,30 @@
 $code-box-bkg: #002451;
 $body-bkg: #1a1b26;
+$accent-bkg: lighten($body-bkg, 30%);
 $body-text-default: #c1c3df;
+
+:root {
+  //scrollbar-color: $accent-bkg;
+}
 * {
   box-sizing: border-box;
 }
+
+*::-webkit-scrollbar {
+  color: #002451;
+}
+*::-webkit-scrollbar-track {
+  background: transparentize($accent-bkg, 1);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparentize($accent-bkg, 1);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: $accent-bkg;
+}
+
 body {
   color: $body-text-default;
   background-color: $body-bkg;
@@ -15,12 +36,16 @@ body {
 iframe {
   width: 100%;
   height: 100%;
+  background-color: whitesmoke;
+  border: none;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #query-results-display {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 15px;
+  column-gap: min(20px, 5%);
   //width: 75%;
   min-width: 600px;
   max-height: 50%;
@@ -32,15 +57,37 @@ iframe {
   background-color: $code-box-bkg;
 }
 .result-pane {
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
   min-height: 400px;
   max-height: 50%;
-  border: 1pt solid rgb(65, 65, 65);
+  border-radius: 5px;
+  background-color: whitesmoke;
+}
+.result-pane-header {
+  height: fit-content;
+  background-color: $accent-bkg;
+  padding: 5px;
+  border-radius: 5px 5px 0px 0px;
+  margin: 0%;
 }
 
 .code-block {
+  overflow-y: auto;
+  overflow-x: hidden;
+  //scrollbar-color: $accent-bkg;
   max-width: 100%;
   width: 100%;
   height: inherit;
+  max-height: 50%;
+  margin: 0px;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+#query-entry-form {
+  margin-bottom: 30px;
 }
