@@ -23,10 +23,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // route to handle get requests to '/chatgpt' endpoint
-// app.get('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
+// app.post('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
 
 // Users array is a test database for storing users - we'll want to replace this with a MongoDB database
-const users = []
+const users = [];
 
 // route to handle post requests to '/signup' endpoint (user signups)
 app.post('/signup', async (req, res) => {
@@ -34,15 +34,15 @@ app.post('/signup', async (req, res) => {
   const hash = await bcrypt.hash(password, 10);
   users.push({
     username,
-    password: hash,
-  })
+    password: hash
+  });
   console.log(`username: ${username}`);
   console.log(`password: ${password}`);
   console.log(`hash: ${hash}`);
   console.log(`username: ${users[0].username}`);
   console.log(`password: ${users[0].password}`);
   return res.send('user created');
-})
+});
 
 //route to handle post requests to '/login' endpoint (user logins)
 app.post('/login', async (req, res) => {
@@ -60,7 +60,7 @@ app.post('/login', async (req, res) => {
   }
   // here we'll want to send a JWT and create a session
   return res.send('logged in');
-})
+});
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")

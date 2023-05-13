@@ -13,7 +13,11 @@ const App = () => {
       return window.alert('Please wait for the current request to complete.');
     }
     setReqStatus('waiting');
-    return fetch(`/components/iframe_assets/initial_style.css`)
+    return fetch(`/chatgpt`, {
+      method: 'POST',
+      body: queryText,
+      headers: { 'Content-type': 'text/plain' }
+    })
       .then((response) => response.text())
       .then((text) => {
         setContentCss(text);
@@ -27,7 +31,7 @@ const App = () => {
 
   return (
     <div id="main-app-div">
-      <h1>Test Header</h1>
+      <div id="title-text">StyleGPT</div>
       <div>
         <QueryEntryForm onSubmit={handleQuery} />
       </div>

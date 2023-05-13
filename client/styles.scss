@@ -1,11 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 $code-box-bkg: #002451;
 $body-bkg: #1a1b26;
+$outer-bkg: darken($body-bkg, 50%);
 $accent-bkg: lighten($body-bkg, 30%);
 $body-text-default: #c1c3df;
+$accent-text: lighten($body-text-default, 50%);
 
-:root {
-  //scrollbar-color: $accent-bkg;
-}
 * {
   box-sizing: border-box;
 }
@@ -26,12 +27,28 @@ $body-text-default: #c1c3df;
 }
 
 body {
-  color: $body-text-default;
-  background-color: $body-bkg;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Raleway', sans-serif;
+  overflow: hidden;
+  margin: 0px;
+  //background-color: $outer-bkg;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(26, 27, 38, 1) 10%,
+    rgba(26, 27, 38, 1) 90%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+#main-app-div {
   width: 75%;
   min-width: 600px;
   margin: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: $body-text-default;
+  background-color: $body-bkg;
+  height: 100vh;
 }
 iframe {
   width: 100%;
@@ -40,6 +57,18 @@ iframe {
   border: none;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+button {
+  border: 1.5pt solid $accent-text;
+  color: $body-text-default;
+  background-color: $body-bkg;
+  width: fit-content;
+}
+
+.button-row {
+  display: flex;
+  gap: 5px;
 }
 
 #query-results-display {
@@ -56,6 +85,19 @@ iframe {
 #result-text {
   background-color: $code-box-bkg;
 }
+
+#title-text {
+  display: flex;
+  font-size: 3rem;
+  font-weight: 800;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 75px;
+  color: $body-bkg;
+  background-color: $body-text-default;
+  border-radius: 5px 5px 0px 0px;
+}
 .result-pane {
   display: flex;
   flex-direction: column;
@@ -67,6 +109,8 @@ iframe {
 .result-pane-header {
   height: fit-content;
   background-color: $accent-bkg;
+  color: $accent-text;
+  font-weight: bold;
   padding: 5px;
   border-radius: 5px 5px 0px 0px;
   margin: 0%;
