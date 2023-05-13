@@ -10,42 +10,27 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS }) => {
     if (contentHtml) {
       setContentSource(contentHtml);
     }
-  });
+  }, [contentHtml]);
 
-  const getCSSText = () => {
-    const pathParts = contentHtml.split('/');
-    const cssPath = pathParts
-      .slice(0, pathParts.length - 1)
-      .join('/')
-      .concat('/' + contentCSS);
+  useEffect(() => {
+    if (contentCSS) {
+      //Set CSS as iFrame style
+      let style = document.createElement('style');
+      style.innerHTML = contentCSS;
 
-    console.log(cssPath);
-    fetch(cssPath)
-      .then((response) => response.text())
-      .then((text) => {
-        console.log(text);
-        const textDisplay = document.querySelector('#result-css-text');
-        textDisplay.innerHtml = text;
-        textDisplay.innerHTML = hljs.highlight(text, {
-          language: 'css',
-          ignoreIllegals: true
-        }).value;
-        hljs.highlightElement(textDisplay);
-      });
-  };
+      const frame = document.querySelector('#sample-component-frame');
+      frame.contentWindow.document.querySelector('head').appendChild(style);
 
-  const loadCSS = () => {
-    const frame = document.querySelector('#sample-component-frame');
-    let link = document.createElement('link');
-    link.href = contentCSS;
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    //frame.document.head.appendChild(link);
-    console.log(link);
-    frame.contentWindow.document.querySelector('head').appendChild(link);
-    console.log(getCSSText());
-    //console.log(hljs.highlightElement);
-  };
+      //Insert into code frame and add highlightint
+      const textDisplay = document.querySelector('#result-css-text');
+      textDisplay.innerHtml = contentCSS;
+      textDisplay.innerHTML = hljs.highlight(contentCSS, {
+        language: 'css',
+        ignoreIllegals: true
+      }).value;
+      hljs.highlightElement(textDisplay);
+    }
+  }, [contentCSS]);
 
   return (
     <div id="query-results-display">
@@ -58,7 +43,6 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS }) => {
       <div id="rendered-results" className="result-pane">
         <div className="result-pane-header">Preview:</div>
         <iframe id="sample-component-frame" src={contentHtml} sandbox></iframe>
-        <button onClick={loadCSS}>Press me to load CSS!</button>
       </div>
     </div>
   );
