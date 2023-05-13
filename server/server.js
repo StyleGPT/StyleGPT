@@ -41,9 +41,26 @@ app.post('/signup', async (req, res) => {
   console.log(`hash: ${hash}`);
   console.log(`username: ${users[0].username}`);
   console.log(`password: ${users[0].password}`);
-  res.send('user created');
+  return res.send('user created');
 })
 
+//route to handle post requests to '/login' endpoint (user logins)
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  // once the database is set up, replace users[0] with the user object returned from the database (for that specific user)
+  const user = users[0];
+  // if the user does not exist in the database
+  if (!user) {
+    return res.send('login failed');
+  }
+  // when we have a database, replace the second argument in the compare method with the hashed password stored in the database for that user
+  const authorized = await bcrypt.compare(password, users[0].password);
+  if (!authorized) {
+    return res.send('login failed');
+  }
+  // here we'll want to send a JWT and create a session
+  return res.send('logged in');
+})
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
