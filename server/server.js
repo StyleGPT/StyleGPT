@@ -26,12 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 //app.get('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
 
 // Users array is a test database for storing users - we'll want to replace this with a MongoDB database
-const users = [
-  {
-    username: 'username',
-    password: 'password',
-  }
-]
+const users = []
 
 // route to handle post requests to '/signup' endpoint (user signups)
 app.post('/signup', async (req, res) => {
@@ -44,7 +39,8 @@ app.post('/signup', async (req, res) => {
   console.log(`username: ${username}`);
   console.log(`password: ${password}`);
   console.log(`hash: ${hash}`);
-  console.log(`users: ${users}`);
+  console.log(`username: ${users[0].username}`);
+  console.log(`password: ${users[0].password}`);
   res.send('user created');
 })
 
