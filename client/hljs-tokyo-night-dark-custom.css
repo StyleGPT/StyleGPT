@@ -87,10 +87,11 @@ code.hljs {
   font-weight: 700;
 }
 */
-pre code.hljs {
+pre {
   display: block;
   overflow-x: auto;
   padding: 1em;
+  margin: 0%;
 }
 code.hljs {
   padding: 3px 5px;

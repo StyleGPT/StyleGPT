@@ -50,11 +50,13 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS }) => {
   return (
     <div id="query-results-display">
       <div id="result-text" className="result-pane">
+        <div className="result-pane-header">CSS:</div>
         <pre>
           <code className="code-block" id="result-css-text"></code>
         </pre>
       </div>
       <div id="rendered-results" className="result-pane">
+        <div className="result-pane-header">Preview:</div>
         <iframe id="sample-component-frame" src={contentHtml} sandbox></iframe>
         <button onClick={loadCSS}>Press me to load CSS!</button>
       </div>
