@@ -2,12 +2,15 @@ import React from 'react';
 import './styles.scss';
 import ResultsDisplayPane from './components/ResultsDisplayPane';
 import './hljs-tokyo-night-dark-custom.css';
+import QueryEntryForm from './components/QueryEntry';
 
 const App = () => {
   return (
     <div id="main-app-div">
       <h1>Test Header</h1>
-      <div>User entry and search goes here</div>
+      <div>
+        <QueryEntryForm />
+        </div>
       <div>
         Results and rendering pane can go here
         <ResultsDisplayPane
