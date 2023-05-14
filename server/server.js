@@ -1,16 +1,12 @@
 require('dotenv').config();
-const bcrypt = require('bcrypt');
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
-
-
 const app = express();
 const PORT = 3000;
 
-// import chatgptController methods
+// import controllers
 const chatgptController = require('./controllers/chatgptController');
-const { Users } = require('./models/StyleGPTModels');
+const authController = require('./controllers/authController');
 
 app.use(express.json());
 
@@ -30,40 +26,10 @@ if (process.env.NODE_ENV === 'production') {
 // app.post('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
 
 // route to handle post requests to '/signup' endpoint (user signups)
-app.post('/signup', async (req, res) => {
-  const { username, password, apikey } = req.body;
-  const hash = await bcrypt.hash(password, 10);
-  Users.create({username: username, password: hash, apikey: apikey})
-    .then(() => {
-      return res.send('user created in database')
-    })
-    .catch(err => {
-      console.log(err);
-      if (err.code === 11000) {
-        return res.send('Username is already taken');
-      }
-    });
-})
+app.post('/signup', authController.signup, (req, res) => res.send(res.locals.message));
 
-//route to handle post requests to '/login' endpoint (user logins)
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const user = Users.find({ username: username }, 'username password')
-    .then(async user => {
-      // if the user does not exist in the database
-      if (!user[0]) {
-        return res.send('login failed');
-      }
-      const authorized = await bcrypt.compare(password, user[0].password);
-      // if the password is incorrect
-      if (!authorized) {
-        return res.send('login failed');
-      }
-      // here we'll want to send a JWT and create a session
-      return res.send('logged in');
-    })
-    .catch(err => console.log(err));
-});
+// route to handle post requests to '/login' endpoint (user logins)
+app.post('/login', authController.login, (req, res) => res.send(res.locals.message));
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
