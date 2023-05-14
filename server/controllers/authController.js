@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { Users } = require('../models/StyleGPTModels');
 
 const authController = {};
@@ -40,7 +41,7 @@ authController.login = (req, res, next) => {
 				return next();
       }
       // here we'll want to send a JWT and create a session
-			res.locals.message = 'logged in';
+			res.locals.message = 'authenticated';
 			return next();
     })
     .catch(err => {
@@ -51,5 +52,26 @@ authController.login = (req, res, next) => {
 			});
 		});
 };
+
+authController.createToken = (req, res, next) => {
+	const user = { username: req.body.username };
+	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+	const token = { accessToken: accessToken };
+	res.locals.user = user;
+	res.locals.token = token;
+	return next();
+}
+
+authController.authenticateToken = (req, res, next) => {
+	const authHeader = req.headers['authorization'];
+	const token = authHeader && authHeader.split(' ')[1];
+	// not sure if I can send status from here
+	if (!token) res.sendStatus(401);
+	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, res.locals.user) => {
+		if (err) return res.sendStatus(403);
+		req.user = user;
+		next();
+	});
+}
 
 module.exports = authController;

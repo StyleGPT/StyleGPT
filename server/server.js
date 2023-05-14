@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
 app.post('/signup', authController.signup, (req, res) => res.send(res.locals.message));
 
 // route to handle post requests to '/login' endpoint (user logins)
-app.post('/login', authController.login, (req, res) => res.send(res.locals.message));
+app.post('/login', authController.login, authController.createToken, authController.authenticateToken, (req, res) => res.send(res.locals.message));
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
