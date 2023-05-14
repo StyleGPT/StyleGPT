@@ -34,8 +34,15 @@ app.post('/signup', async (req, res) => {
   const { username, password, apikey } = req.body;
   const hash = await bcrypt.hash(password, 10);
   Users.create({username: username, password: hash, apikey: apikey})
-    .then(() => res.send('user created in database'))
-    .catch(err => console.log(err));
+    .then(() => {
+      return res.send('user created in database')
+    })
+    .catch(err => {
+      console.log(err);
+      if (err.code === 11000) {
+        return res.send('Username is already taken');
+      }
+    });
 })
 
 //route to handle post requests to '/login' endpoint (user logins)
