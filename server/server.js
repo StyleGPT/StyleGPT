@@ -30,31 +30,26 @@ if (process.env.NODE_ENV === 'production') {
 // app.post('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
 
 // Users array is a test database for storing users - we'll want to replace this with a MongoDB database
-const users = [];
+// const users = [];
 
 // route to handle post requests to '/signup' endpoint (user signups)
 app.post('/signup', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, apikey } = req.body;
   const hash = await bcrypt.hash(password, 10);
-  users.push({
-    username,
-    password: hash
-  });
-  console.log(`username: ${username}`);
-  console.log(`password: ${password}`);
-  console.log(`hash: ${hash}`);
-  console.log(`username: ${users[0].username}`);
-  console.log(`password: ${users[0].password}`);
-<<<<<<< HEAD
-  return res.send('user created');
-});
-=======
-  Users.create({username: username, password: hash, apikey: 'testKey'})
+  // users.push({
+  //   username,
+  //   password: hash
+  // });
+  // console.log(`username: ${username}`);
+  // console.log(`password: ${password}`);
+  // console.log(`hash: ${hash}`);
+  // console.log(`username: ${users[0].username}`);
+  // console.log(`password: ${users[0].password}`);
+  Users.create({username: username, password: hash, apikey: apikey})
     .then(() => res.send('user created in database'))
     .catch(err => console.log(err));
   // return res.send('user created');
 })
->>>>>>> dev
 
 //route to handle post requests to '/login' endpoint (user logins)
 app.post('/login', async (req, res) => {
