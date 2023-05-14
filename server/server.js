@@ -29,44 +29,33 @@ if (process.env.NODE_ENV === 'production') {
 // route to handle get requests to '/chatgpt' endpoint
 // app.post('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
 
-// Users array is a test database for storing users - we'll want to replace this with a MongoDB database
-// const users = [];
-
 // route to handle post requests to '/signup' endpoint (user signups)
 app.post('/signup', async (req, res) => {
   const { username, password, apikey } = req.body;
   const hash = await bcrypt.hash(password, 10);
-  // users.push({
-  //   username,
-  //   password: hash
-  // });
-  // console.log(`username: ${username}`);
-  // console.log(`password: ${password}`);
-  // console.log(`hash: ${hash}`);
-  // console.log(`username: ${users[0].username}`);
-  // console.log(`password: ${users[0].password}`);
   Users.create({username: username, password: hash, apikey: apikey})
     .then(() => res.send('user created in database'))
     .catch(err => console.log(err));
-  // return res.send('user created');
 })
 
 //route to handle post requests to '/login' endpoint (user logins)
-app.post('/login', async (req, res) => {
+app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  // once the database is set up, replace users[0] with the user object returned from the database (for that specific user)
-  const user = users[0];
-  // if the user does not exist in the database
-  if (!user) {
-    return res.send('login failed');
-  }
-  // when we have a database, replace the second argument in the compare method with the hashed password stored in the database for that user
-  const authorized = await bcrypt.compare(password, users[0].password);
-  if (!authorized) {
-    return res.send('login failed');
-  }
-  // here we'll want to send a JWT and create a session
-  return res.send('logged in');
+  const user = Users.find({ username: username }, 'username password')
+    .then(async user => {
+      // if the user does not exist in the database
+      if (!user[0]) {
+        return res.send('login failed');
+      }
+      const authorized = await bcrypt.compare(password, user[0].password);
+      // if the password is incorrect
+      if (!authorized) {
+        return res.send('login failed');
+      }
+      // here we'll want to send a JWT and create a session
+      return res.send('logged in');
+    })
+    .catch(err => console.log(err));
 });
 
 app.use((req, res) =>
