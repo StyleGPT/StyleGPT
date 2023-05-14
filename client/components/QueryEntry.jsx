@@ -16,9 +16,9 @@ const QueryEntryForm = ({ onSubmit }) => {
       <textarea
         id="msg"
         name="user_message"
-        placeholder="Can you style this html form like a block of cheese?"
+        placeholder="...like a block of cheese"
       ></textarea>
-      <div>
+      <div className="button-row">
         <button type="submit" onClick={onSubmitClick}>
           Submit
         </button>
