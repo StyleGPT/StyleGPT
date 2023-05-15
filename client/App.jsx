@@ -3,6 +3,7 @@ import './styles.scss';
 import ResultsDisplayPane from './components/ResultsDisplayPane';
 import './hljs-tokyo-night-dark-custom.css';
 import QueryEntryForm from './components/QueryEntry';
+import StoredResponse from './components/StoredResponse';
 
 const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
@@ -45,6 +46,9 @@ const App = () => {
           contentCSS={contentCss}
           status={reqStatus}
         />
+      </div>
+      <div>
+        <StoredResponse />
       </div>
     </div>
   );
