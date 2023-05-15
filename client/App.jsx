@@ -1,17 +1,29 @@
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.scss';
 import ResultsDisplayPane from './components/ResultsDisplayPane';
 import './hljs-tokyo-night-dark-custom.css';
 import QueryEntryForm from './components/QueryEntry';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
-import StoredResponse from './components/StoredResponse';
-
+import Dropdown from './components/Dropdown';
 
 const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
   const [contentCss, setContentCss] = useState(null);
-  // const logInContext = createContext();
+  const [loginVisible, setLoginVisible] = useState(false);
+
+  useEffect(() => {
+    document.querySelector('#login-modal').style.display = loginVisible
+      ? 'flex'
+      : 'none';
+  });
+  const toggleLogin = () => {
+    if (loginVisible) {
+      setLoginVisible(false);
+    } else {
+      setLoginVisible(true);
+    }
+  };
 
   const handleQuery = (queryText, key, temp, model) => {
     console.log(reqStatus);
@@ -42,13 +54,26 @@ const App = () => {
 
   return (
     <div id="main-app-div">
-      <div id="title-text">StyleGPT</div>
-      {/* <logInContext.Provider> */}
-      <div>
-        <RegistrationForm />
-      </div>
-      <div>
-        <LoginForm />
+      <div id="title-text">
+        StyleGPT{' '}
+        <div id="login-toggle" onClick={toggleLogin}>
+          <div>Sign up</div>
+
+          <div
+            style={{ height: '0px', border: '1pt solid black', width: '90%' }}
+          ></div>
+
+          <div>Log in</div>
+          <div id="login-modal">
+            {/* <logInContext.Provider> */}
+            <div>
+              <RegistrationForm />
+            </div>
+            <div>
+              <LoginForm />
+            </div>
+          </div>
+        </div>
       </div>
       <div>
         <QueryEntryForm onSubmit={handleQuery} />
@@ -64,9 +89,8 @@ const App = () => {
       {/* </logInContext.Provider> */}
 
       <div>
-        <StoredResponse />
+        <Dropdown />
       </div>
-
     </div>
   );
 };
