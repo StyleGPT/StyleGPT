@@ -8,7 +8,7 @@ const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
   const [contentCss, setContentCss] = useState(null);
 
-  const handleQuery = (queryText, key) => {
+  const handleQuery = (queryText, key, temp, model) => {
     console.log(reqStatus);
     if (reqStatus !== 'ready') {
       return window.alert('Please wait for the current request to complete.');
@@ -18,7 +18,9 @@ const App = () => {
       method: 'POST',
       body: JSON.stringify({
         prompt: queryText,
-        key: key
+        key,
+        temp,
+        model
       }),
       headers: { 'Content-type': 'application/json' }
     })
