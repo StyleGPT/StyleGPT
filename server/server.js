@@ -11,6 +11,8 @@ const stylesController = require('./controllers/stylesController');
 
 app.use(express.json());
 
+// app.get('/pita', authController.authenticateToken, (req, res) => res.status(200).send('Access Granted'));
+
 if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
@@ -34,7 +36,7 @@ app.post('/signup', authController.signup, authController.createToken, (req, res
 app.post('/login', authController.login, authController.createToken, (req, res) => res.send(res.locals.message));
 
 // route to test authentication 
-app.get('/testJWT', authController.authenticateToken, (req, res) => res.status(200).send('Access Granted'));
+// app.get('/testJWT', authController.authenticateToken, (req, res) => res.status(200).send('Access Granted'));
 
 // route to add a document to userStyles database
 // app.post('/saveStyle', stylesController.saveStyle, (req, res) => res.status(201).send('Document added to database'));
