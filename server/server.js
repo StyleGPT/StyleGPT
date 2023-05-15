@@ -26,10 +26,13 @@ if (process.env.NODE_ENV === 'production') {
 // app.post('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
 
 // route to handle post requests to '/signup' endpoint (user signups)
-app.post('/signup', authController.signup, (req, res) => res.send(res.locals.message));
+app.post('/signup', authController.signup, authController.createToken, (req, res) => res.send(res.locals.message));
 
 // route to handle post requests to '/login' endpoint (user logins)
-app.post('/login', authController.login, (req, res) => res.send(res.locals.message));
+app.post('/login', authController.login, authController.createToken, (req, res) => res.send(res.locals.message));
+
+// route to test authentication 
+app.get('/testJWT', authController.authenticateToken, (req, res) => res.status(200).send('Access Granted'));
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
