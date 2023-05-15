@@ -3,13 +3,29 @@ import './styles.scss';
 import ResultsDisplayPane from './components/ResultsDisplayPane';
 import './hljs-tokyo-night-dark-custom.css';
 import QueryEntryForm from './components/QueryEntry';
-import StoredResponse from './components/StoredResponse';
+import LoginForm from './components/LoginForm';
+import RegistrationForm from './components/RegistrationForm';
+import Dropdown from './components/Dropdown';
 
 const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
   const [contentCss, setContentCss] = useState(null);
+  const [loginVisible, setLoginVisible] = useState(false);
 
-  const handleQuery = (queryText, key) => {
+  useEffect(() => {
+    document.querySelector('#login-modal').style.display = loginVisible
+      ? 'flex'
+      : 'none';
+  });
+  const toggleLogin = () => {
+    if (loginVisible) {
+      setLoginVisible(false);
+    } else {
+      setLoginVisible(true);
+    }
+  };
+
+  const handleQuery = (queryText, key, temp, model) => {
     console.log(reqStatus);
     if (reqStatus !== 'ready') {
       return window.alert('Please wait for the current request to complete.');
@@ -19,7 +35,9 @@ const App = () => {
       method: 'POST',
       body: JSON.stringify({
         prompt: queryText,
-        key: key
+        key,
+        temp,
+        model
       }),
       headers: { 'Content-type': 'application/json' }
     })
@@ -36,7 +54,28 @@ const App = () => {
 
   return (
     <div id="main-app-div">
-      <div id="title-text">StyleGPT</div>
+      <div id="title-text">
+        StyleGPT{' '}
+        <div id="login-toggle" onClick={toggleLogin}>
+          <div>Sign up</div>
+
+          <div
+            style={{ height: '0px', border: '1pt solid black', width: '90%' }}
+          ></div>
+
+          <div>Log in</div>
+        </div>
+        <div id="login-modal">
+          {/* <logInContext.Provider> */}
+          <div>
+            <RegistrationForm />
+          </div>
+          <div>
+            <LoginForm />
+          </div>
+        </div>
+      </div>
+
       <div>
         <QueryEntryForm onSubmit={handleQuery} />
       </div>
@@ -47,8 +86,11 @@ const App = () => {
           status={reqStatus}
         />
       </div>
+
+      {/* </logInContext.Provider> */}
+
       <div>
-        <StoredResponse />
+        <Dropdown />
       </div>
     </div>
   );
