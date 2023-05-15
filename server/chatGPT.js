@@ -40,7 +40,7 @@ async function runCompletion(descriptor, key) {
             prompt: `generate CSS rules for each element of this html ${descriptor} ${htmlString}`,
             max_tokens:4000,
             // temperature set to zero to keep responses consistent
-            temperature:0
+            temperature:0.8
         });
     console.log('response from chatGPT', completion.data.choices[0].text);
     return completion.data.choices[0].text;
