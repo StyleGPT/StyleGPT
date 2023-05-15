@@ -94,7 +94,7 @@ button {
 }
 
 #login-modal {
-  padding: 15px;
+  padding: 5px;
   position: absolute;
   flex-direction: column;
   top: 30px;
@@ -102,6 +102,12 @@ button {
 
   background-color: #303144;
   color: rgba(0, 0, 0, 1);
+
+  form {
+    div {
+      height: 40px;
+    }
+  }
 }
 #title-text {
   position: relative;
