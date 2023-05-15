@@ -26,7 +26,7 @@ const Users = mongoose.model('users', userSchema);
 const userStylesSchema = new Schema({
   username: { type: String, required: true},
   cssStyles: {type: String, required: true},
-  timestamp: { type: Date, required: true },
+  timestamp: { type: String, required: true },
   prompt: { type: String },
   description: { type: String},
 })
