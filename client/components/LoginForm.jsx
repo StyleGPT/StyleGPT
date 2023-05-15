@@ -31,7 +31,6 @@ export default LoginForm;
 
 
 const handleQuery = (userInfo) => {
-  setReqStatus('waiting');
   return fetch(`/login`, {
     method: 'POST',
     body: userInfo,
