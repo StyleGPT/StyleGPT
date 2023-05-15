@@ -22,6 +22,24 @@ const userSchema = new Schema({
 
 const Users = mongoose.model('users', userSchema);
 
+// Data Model for UserStyles
+const userStylesSchema = new Schema({
+  username: { type: String, required: true},
+  cssStyles: {type: String, required: true},
+  timestamp: { type: Date, required: true },
+  prompt: { type: String },
+  description: { type: String},
+})
+  // username field - string, required
+  // CSS styles - string, required
+    // note: will need to clean/encode/minify the CSS styles potentially when saving and then unclean the CSS when querying the database and returning to the frontend for display
+  // timestamp field - date type, required
+  // prompt field - string
+  // description field - string
+
+  const UserStyles = mongoose.model('userStyles', userStylesSchema)
+
 module.exports = {
     Users,
-}
+    UserStyles,
+};
