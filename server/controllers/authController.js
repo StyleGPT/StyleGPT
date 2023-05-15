@@ -27,7 +27,7 @@ authController.signup = async (req, res, next) => {
 
 authController.login = (req, res, next) => {
   const { username, password } = req.body;
-  console.log(req.body, username, password);
+  console.log(req.body);
   const user = Users.find({ username: username }, 'username password')
     .then(async user => {
       // if the user does not exist in the database
@@ -58,7 +58,7 @@ authController.createToken = (req, res, next) => {
 	const user = { username: req.body.username };
 	// sessions are currently set to expire after 1 hour 
 	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3600s' });
-	// console.log(accessToken);
+	console.log(accessToken);
 	// For testing JWTs, do the following:
 		// 1. console.log(accessToken)
 		// 2. copy the accessToken from the console and paste it into the Authorization header in Postman in the following format:

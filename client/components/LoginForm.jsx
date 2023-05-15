@@ -34,12 +34,12 @@ const LoginForm = () => {
         <div>
             <form action='' onSubmit={submitThis}>
                 <div>
-                    <label htmlFor='email'>Email</label>
-                    <input type='text' name='email' id='email' value={email} onChange={e=>setEmail(e.target.value)}/>
+                    {/* <label htmlFor='email'>Email</label> */}
+                    <input type='text' name='email' id='email' value={email} placeholder='email' onChange={e=>setEmail(e.target.value)}/>
                 </div>
                 <div>
-                    <label htmlFor='password'>Password</label>
-                    <input type='text' name='password' id='password' value={password} onChange={(e=>setPassword(e.target.value))}/>
+                    {/* <label htmlFor='password'>Password</label> */}
+                    <input type='text' name='password' id='password' value={password} placeholder='password' onChange={(e=>setPassword(e.target.value))}/>
                 </div>
                 <button type='submit'>Login</button>
             </form>
@@ -48,5 +48,3 @@ const LoginForm = () => {
 }
 
 export default LoginForm;
-
-

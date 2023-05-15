@@ -145,6 +145,15 @@ textarea {
   width: 100%;
 }
 
+textarea:focus::placeholder {
+  color: transparent;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
 #query-entry-form {
   margin-bottom: 30px;
 }
+

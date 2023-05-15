@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import './styles.scss';
 import ResultsDisplayPane from './components/ResultsDisplayPane';
 import './hljs-tokyo-night-dark-custom.css';
 import QueryEntryForm from './components/QueryEntry';
 import LoginForm from './components/LoginForm';
-// import RegistrationForm from './components/RegistrationForm';
+import RegistrationForm from './components/RegistrationForm';
 
 const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
   const [contentCss, setContentCss] = useState(null);
+  // const logInContext = createContext();
 
   const handleQuery = (queryText, key) => {
     console.log(reqStatus);
@@ -38,8 +39,9 @@ const App = () => {
   return (
     <div id="main-app-div">
       <div id="title-text">StyleGPT</div>
+      {/* <logInContext.Provider> */}
       <div>
-        {/* <RegistrationForm /> */}
+        <RegistrationForm />
       </div>
       <div>
         <LoginForm />
@@ -54,6 +56,7 @@ const App = () => {
           status={reqStatus}
         />
       </div>
+      {/* </logInContext.Provider> */}
     </div>
   );
 };
