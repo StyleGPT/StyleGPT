@@ -1,34 +1,35 @@
 import React, { useState } from 'react';
 
 const LoginForm = () => {
-    const handleRequest = (userInfo) => {
-        console.log('handleRequest test', userInfo)
-    return fetch(`/login`, {
-        method: 'POST',
-        body: userInfo,
-        headers: { 'Content-type': 'text/plain' }
-    })
-        .then((response) => response.text())
-        .then((text) => {
-        if (text === 'logged in') {
-            setIsLoggedIn(true);
-            console.log(isLoggedIn);
-        }
-        })
-        .catch((err) => {
-        console.log(`Received error while processing login request: ${err}`);
-        });
-    };
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+
+    const handleRequest = (userData) => {
+        console.log('handleRequest test', userData);
+        return fetch(`/login`, {
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers: { 'Content-type': 'application/json' }
+        })
+            .then((response) => response.text())
+            .then((text) => {
+            if (text === 'logged in') {
+                // setIsLoggedIn(true);
+                console.log(text);
+            }
+            })
+            .catch((err) => {
+            console.log(`Received error while processing login request: ${err}`);
+            });
+    };
     
     const submitThis = (event) => {
         event.preventDefault();
-        const info = {username: email, password: password};
-        console.log(info);
-        handleRequest(info);
+        const userData = {username: email, password: password};
+        console.log(userData);
+        handleRequest(userData);
     }
 
     return (

@@ -27,7 +27,7 @@ authController.signup = async (req, res, next) => {
 
 authController.login = (req, res, next) => {
   const { username, password } = req.body;
-  console.log('req.body', req.body);
+  console.log(req.body, username, password);
   const user = Users.find({ username: username }, 'username password')
     .then(async user => {
       // if the user does not exist in the database

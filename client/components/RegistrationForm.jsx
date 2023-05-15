@@ -2,27 +2,31 @@ import React, { useState } from 'react';
 
 const RegistrationForm = () => {
 
-    const handleRequest = (userInfo) => {
-    return fetch(`/signup`, {
-        method: 'POST',
-        body: userInfo,
-        headers: { 'Content-type': 'text/plain' }
-    })
-        .then((response) => response.text())
-        // would we like something here...?
-        .catch((err) => {
-        console.log(`Received error while processing login request: ${err}`);
-        });
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ apiKey, setApiKey ] = useState('');
+
+    const handleRequest = (userData) => {
+        console.log('handleRequest test', userData);
+        return fetch(`/signup`, {
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers: { 'Content-type': 'application/json' }
+        })
+            .then((response) => response.text())
+            .then((text) => {
+            if (text === 'user created in database') {
+                console.log(text);
+            }
+            })
+            .catch((err) => {
+            console.log(`Received error while processing login request: ${err}`);
+            });
     };
 
-    const [ email, setEmail ] = useState(null);
-    const [ password, setPassword ] = useState(null);
-    const [ apiKey, setApiKey ] = useState(null);
-    const [ dataInput, setDataInput ] = useState(null);
     const submitThis = () => {
-        const info = {email: email, password: password, apiKey: apiKey}
-        setDataInput([info]);
-        handleRequest(dataInput);
+        const userData = {email: email, password: password, apiKey: apiKey};
+        handleRequest(userData);
     }
 
     return (
