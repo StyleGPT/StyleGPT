@@ -5,11 +5,11 @@ import { useState, useEffect } from 'react';
 
 const Dropdown = () => {
     // sample options. want to link to database 
-    // const options = [
-    //     { value: "cheese", label: "Cheese" },
-    //     { value: "rainbow", label: "Rainbow" },
-    //     { value: "party", label: "Party" },
-    // ];
+    const options = [
+        { value: "cheese", label: "Cheese" },
+        { value: "rainbow", label: "Rainbow" },
+        { value: "party", label: "Party" },
+    ];
 
     // // get request to userStyles entpoint
     // useEffect(() => {
