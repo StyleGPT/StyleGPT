@@ -64,17 +64,18 @@ const App = () => {
           ></div>
 
           <div>Log in</div>
-          <div id="login-modal">
-            {/* <logInContext.Provider> */}
-            <div>
-              <RegistrationForm />
-            </div>
-            <div>
-              <LoginForm />
-            </div>
+        </div>
+        <div id="login-modal">
+          {/* <logInContext.Provider> */}
+          <div>
+            <RegistrationForm />
+          </div>
+          <div>
+            <LoginForm />
           </div>
         </div>
       </div>
+
       <div>
         <QueryEntryForm onSubmit={handleQuery} />
       </div>
