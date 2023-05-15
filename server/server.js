@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // route to handle get requests to '/chatgpt' endpoint
-app.post('/chatgpt', chatgptController.query, (req, res) => 
+app.post('/chatgpt', chatgptController.query, stylesController.saveStyle, (req, res) => 
 res.status(200).send(res.locals.response));
 
 // route to handle post requests to '/signup' endpoint (user signups)
@@ -37,7 +37,7 @@ app.post('/login', authController.login, authController.createToken, (req, res) 
 app.get('/testJWT', authController.authenticateToken, (req, res) => res.status(200).send('Access Granted'));
 
 // route to add a document to userStyles database
-app.post('/saveStyle', stylesController.saveStyle, (req, res) => res.status(201).send('Document added to database'));
+// app.post('/saveStyle', stylesController.saveStyle, (req, res) => res.status(201).send('Document added to database'));
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")

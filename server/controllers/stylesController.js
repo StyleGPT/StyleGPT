@@ -7,8 +7,9 @@ stylesController.saveStyle = async (req, res, next) => {
     // data format 'Mon May 15 2023'
     const date = new Date();
     // get input from req.body;
-    const { username, cssStyles, prompt, description } = req.body;
-    UserStyles.create( { username, cssStyles, timestamp: date.toString().slice(0,15), prompt, description })
+    const { prompt } = req.body;
+    const cssStyles = res.locals.response;
+    UserStyles.create( { cssStyles: cssStyles, timestamp: date.toString().slice(0,15), prompt: prompt })
         .then(() => {
             return next();
         })
