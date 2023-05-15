@@ -29,10 +29,12 @@ const QueryEntryForm = ({ onSubmit }) => {
         name="user_message"
         placeholder="...like a block of cheese"
       ></textarea>
-      <h3>OpenAI Query Options</h3>
+      <h3 style={{ marginBottom: '5px' }}>OpenAI Query Options</h3>
       <div id="open-ai-options">
         <div id="temp-selector">
-          <h5>Temperature:</h5>
+          <h5 style={{ marginTop: '10px', marginBottom: '10px' }}>
+            Temperature:
+          </h5>
           <input
             id="temp-input"
             type="range"
@@ -43,21 +45,23 @@ const QueryEntryForm = ({ onSubmit }) => {
           <div id="temp-input-display">1</div>
         </div>
         <div id="model-selector">
-          <h5>Model:</h5>
+          <h5 style={{ marginTop: '10px', marginBottom: '10px' }}>Model:</h5>
           <select name="model" id="model-dropdown">
             <option value="text-davinci-003">text-davinci-003</option>
             <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
           </select>
         </div>
       </div>
-      <h5>
+      <h5 style={{ marginTop: '10px', marginBottom: '10px' }}>
         <em>Please enter your OpenAI API Key (or sign in above)</em>
       </h5>
-      <textarea
+      <input
+        type="text"
         id="api-key"
         name="api-key"
         placeholder="Please enter OpenAI API Key"
-      ></textarea>
+        style={{ marginBottom: '5px', width: '100%' }}
+      ></input>
       <div className="button-row">
         <button type="submit" onClick={onSubmitClick}>
           Submit

@@ -17,7 +17,6 @@ const getHtmlString = (file = 'sample_component.html') => {
     )
     .toString();
 
-  console.log(templateHtml);
   return encodeHTMLEntities(templateHtml);
 };
 
@@ -36,7 +35,7 @@ async function runCompletion(descriptor, key, temp, model) {
     const completion = await openai.createCompletion({
       model: model,
       prompt: `generate CSS rules for each element of this html to look ${descriptor} ${htmlString}`,
-      max_tokens: 4000,
+      max_tokens: 3500,
       // temperature set to zero to keep responses consistent
       temperature: Number(temp)
     });
@@ -62,11 +61,15 @@ async function runCompletion(descriptor, key, temp, model) {
       temperature: Number(temp)
     });
 
-    const resultText = completion.data.choices[0].message.content;
+    let resultText = completion.data.choices[0].message.content;
     if (resultText.includes('```')) {
-      return resultText.split('```')[1].trim();
+      resultText = resultText.split('```')[1].trim();
+      if (resultText.split('\n')[0].search(/css|CSS/)) {
+        resultText = resultText.split('\n').slice(1).join('\n');
+      }
+      return resultText;
     }
-    return resultText;
+    return encodeHTMLEntities(resultText);
   }
 }
 
