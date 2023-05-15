@@ -23,7 +23,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // route to handle get requests to '/chatgpt' endpoint
-// app.post('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
+app.post('/chatgpt', chatgptController.query, (req, res) => 
+res.status(200).send(res.locals.response));
 
 // route to handle post requests to '/signup' endpoint (user signups)
 app.post('/signup', authController.signup, authController.createToken, (req, res) => res.send(res.locals.message));

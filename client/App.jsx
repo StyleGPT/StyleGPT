@@ -10,15 +10,19 @@ const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
   const [contentCss, setContentCss] = useState(null);
 
-  const handleQuery = (queryText) => {
+  const handleQuery = (queryText, key) => {
+    console.log(reqStatus);
     if (reqStatus !== 'ready') {
       return window.alert('Please wait for the current request to complete.');
     }
     setReqStatus('waiting');
     return fetch(`/chatgpt`, {
       method: 'POST',
-      body: queryText,
-      headers: { 'Content-type': 'text/plain' }
+      body: JSON.stringify({
+        prompt: queryText,
+        key: key
+      }),
+      headers: { 'Content-type': 'application/json' }
     })
       .then((response) => response.text())
       .then((text) => {
