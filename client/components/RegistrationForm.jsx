@@ -13,15 +13,15 @@ const RegistrationForm = () => {
             body: JSON.stringify(userData),
             headers: { 'Content-type': 'application/json' }
         })
-            .then((response) => response.text())
-            .then((text) => {
+        .then((response) => response.text())
+        .then((text) => {
             if (text === 'user created in database') {
                 console.log(text);
             }
-            })
-            .catch((err) => {
+        })
+        .catch((err) => {
             console.log(`Received error while processing login request: ${err}`);
-            });
+        });
     };
 
     const submitThis = () => {

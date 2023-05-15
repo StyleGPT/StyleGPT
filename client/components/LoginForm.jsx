@@ -13,22 +13,20 @@ const LoginForm = () => {
             body: JSON.stringify(userData),
             headers: { 'Content-type': 'application/json' }
         })
-            .then((response) => response.text())
-            .then((text) => {
+        .then((response) => response.text())
+        .then((text) => {
             if (text === 'logged in') {
-                // setIsLoggedIn(true);
-                console.log(text);
-            }
-            })
-            .catch((err) => {
+                setIsLoggedIn(true);
+            };
+        })
+        .catch((err) => {
             console.log(`Received error while processing login request: ${err}`);
-            });
+        });
     };
     
     const submitThis = (event) => {
         event.preventDefault();
         const userData = {username: email, password: password};
-        console.log(userData);
         handleRequest(userData);
     }
 
