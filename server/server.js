@@ -1,16 +1,12 @@
 require('dotenv').config();
-const bcrypt = require('bcrypt');
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
-
-
 const app = express();
 const PORT = 3000;
 
-// import chatgptController methods
+// import controllers
 const chatgptController = require('./controllers/chatgptController');
-const { Users } = require('./models/StyleGPTModels');
+const authController = require('./controllers/authController');
 
 app.use(express.json());
 
@@ -29,45 +25,14 @@ if (process.env.NODE_ENV === 'production') {
 // route to handle get requests to '/chatgpt' endpoint
 // app.post('/chatgpt', chatgptController.query, (req, res) => res.sendStatus(200));
 
-// Users array is a test database for storing users - we'll want to replace this with a MongoDB database
-const users = [];
-
 // route to handle post requests to '/signup' endpoint (user signups)
-app.post('/signup', async (req, res) => {
-  const { username, password } = req.body;
-  const hash = await bcrypt.hash(password, 10);
-  users.push({
-    username,
-    password: hash
-  });
-  console.log(`username: ${username}`);
-  console.log(`password: ${password}`);
-  console.log(`hash: ${hash}`);
-  console.log(`username: ${users[0].username}`);
-  console.log(`password: ${users[0].password}`);
-  Users.create({username: username, password: hash, apikey: 'testKey'})
-    .then(() => res.send('user created in database'))
-    .catch(err => console.log(err));
-  // return res.send('user created');
-})
+app.post('/signup', authController.signup, authController.createToken, (req, res) => res.send(res.locals.message));
 
-//route to handle post requests to '/login' endpoint (user logins)
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  // once the database is set up, replace users[0] with the user object returned from the database (for that specific user)
-  const user = users[0];
-  // if the user does not exist in the database
-  if (!user) {
-    return res.send('login failed');
-  }
-  // when we have a database, replace the second argument in the compare method with the hashed password stored in the database for that user
-  const authorized = await bcrypt.compare(password, users[0].password);
-  if (!authorized) {
-    return res.send('login failed');
-  }
-  // here we'll want to send a JWT and create a session
-  return res.send('logged in');
-});
+// route to handle post requests to '/login' endpoint (user logins)
+app.post('/login', authController.login, authController.createToken, (req, res) => res.send(res.locals.message));
+
+// route to test authentication 
+app.get('/testJWT', authController.authenticateToken, (req, res) => res.status(200).send('Access Granted'));
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")

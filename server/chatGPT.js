@@ -39,6 +39,7 @@ async function runCompletion(input) {
     console.log('response from chatGPT', completion.data.choices[0].text);
 }
 
+// returns the response from the API
 const cssResponse = runCompletion(prompt);
 console.log(cssResponse);
 

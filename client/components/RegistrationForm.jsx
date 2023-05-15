@@ -21,10 +21,10 @@ const LoginForm = () => {
 
     const [ email, setEmail ] = useState(null);
     const [ password, setPassword ] = useState(null);
+    const [ apiKey, setApiKey ] = useState(null);
     const [ dataInput, setDataInput ] = useState(null);
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
     const submitThis = () => {
-        const info = {email: email, password: password}
+        const info = {email: email, password: password, apiKey: apiKey}
         setDataInput([info]);
         handleRequest(dataInput);
     }
@@ -39,6 +39,10 @@ const LoginForm = () => {
                 <div>
                     <label htmlFor='password'>Password</label>
                     <input type='text' name='password' id='password' value={password} onChange={(e=>setPassword(e.target.value))}/>
+                </div>
+                <div>
+                    <label htmlFor='apiKey'>API Key</label>
+                    <input type='text' name='apiKey' id='apiKey' value={apiKey} onChange={(e=>setApiKey(e.target.value))}/>
                 </div>
                 <button type='submit'>Login</button>
             </form>
