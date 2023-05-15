@@ -7,6 +7,7 @@ import QueryEntryForm from './components/QueryEntry';
 const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
   const [contentCss, setContentCss] = useState(null);
+  const [loginVisible, setLoginVisible] = useState(false);
 
   const handleQuery = (queryText, key, temp, model) => {
     console.log(reqStatus);
@@ -41,7 +42,15 @@ const App = () => {
         StyleGPT{' '}
         <div>
           CLICK ME
-          <div id="login-modal"></div>
+          <div onClick={toggleLogin} id="login-modal">
+            {/* <logInContext.Provider> */}
+            <div>
+              <RegistrationForm />
+            </div>
+            <div>
+              <LoginForm />
+            </div>
+          </div>
         </div>
       </div>
       <div>
