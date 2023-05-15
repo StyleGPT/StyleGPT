@@ -45,16 +45,11 @@ app.post('/signup', async (req, res) => {
   console.log(`hash: ${hash}`);
   console.log(`username: ${users[0].username}`);
   console.log(`password: ${users[0].password}`);
-<<<<<<< HEAD
-  return res.send('user created');
-});
-=======
   Users.create({username: username, password: hash, apikey: 'testKey'})
     .then(() => res.send('user created in database'))
     .catch(err => console.log(err));
   // return res.send('user created');
 })
->>>>>>> dev
 
 //route to handle post requests to '/login' endpoint (user logins)
 app.post('/login', async (req, res) => {
