@@ -41,7 +41,7 @@ authController.login = (req, res, next) => {
 				return next();
       }
       // here we'll want to send a JWT and create a session
-			res.locals.message = 'authenticated';
+			res.locals.message = 'logged in';
 			return next();
     })
     .catch(err => {
@@ -55,22 +55,32 @@ authController.login = (req, res, next) => {
 
 authController.createToken = (req, res, next) => {
 	const user = { username: req.body.username };
-	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-	const token = { accessToken: accessToken };
-	res.locals.user = user;
-	res.locals.token = token;
+	// sessions are currently set to expire after 1 hour 
+	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3600s' });
+	// console.log(accessToken);
+	// For testing JWTs, do the following:
+		// 1. console.log(accessToken)
+		// 2. copy the accessToken from the console and paste it into the Authorization header in Postman in the following format:
+			// BEARER accessToken
+			// Ex: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphbWVzMSIsImlhdCI6MTY4NDExMDcyMCwiZXhwIjoxNjg0MTEwNzgwfQ.2PldxW9dOOCuXSTmvJcfbNGsfWZyIG441b_c7mnzDto
+		// 3. after updating the authorization header in Postman, test a route that uses the authenticateToken method 
+			// Ex: run a GET request to '/testJWT'
+		// 4. there should be a successful status code (you should see 'Access Granted' when running the '/testJWT' test)
+		// 5. if you update the expiration date when the accessToken is created (the expiresIn field where jwt.sign is invoked), 
+			//  and then you run these tests, you should get 'Access Granted' until the accessToken expires. 
+			//  You'll get 'Access Denied' after the accessToken expires. 
+			//  You'll also get 'Access Denied' if you change a single character in the accessToken (in the authorization header). 
 	return next();
 }
 
 authController.authenticateToken = (req, res, next) => {
 	const authHeader = req.headers['authorization'];
 	const token = authHeader && authHeader.split(' ')[1];
-	// not sure if I can send status from here
-	if (!token) res.sendStatus(401);
-	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, res.locals.user) => {
-		if (err) return res.sendStatus(403);
+	if (!token) res.status(401).send('Access Denied');
+	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+		if (err) return res.status(403).send('Access Denied');
 		req.user = user;
-		next();
+		return next();
 	});
 }
 
