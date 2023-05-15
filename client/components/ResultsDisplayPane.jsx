@@ -4,13 +4,13 @@ import css from 'highlight.js/lib/languages/css';
 hljs.registerLanguage('css', css);
 
 const ResultsDisplayPane = ({ contentHtml, contentCSS, status }) => {
-  const [contentSource, setContentSource] = useState();
+  //const [contentSource, setContentSource] = useState();
 
-  useEffect(() => {
-    if (contentHtml) {
-      setContentSource(contentHtml);
-    }
-  }, [contentHtml]);
+  // useEffect(() => {
+  //   if (contentHtml) {
+  //     setContentSource(contentHtml);
+  //   }
+  // }, [contentHtml]);
 
   useEffect(() => {
     console.log(status);
@@ -52,7 +52,7 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS, status }) => {
         language: 'css',
         ignoreIllegals: true
       }).value;
-      hljs.highlightElement(textDisplay);
+      //hljs.highlightElement(textDisplay);
 
       //Remove loading overlay if present
       const overlay = document.querySelector('#css-text-loading-overlay');

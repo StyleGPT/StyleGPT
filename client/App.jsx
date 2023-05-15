@@ -37,7 +37,13 @@ const App = () => {
 
   return (
     <div id="main-app-div">
-      <div id="title-text">StyleGPT</div>
+      <div id="title-text">
+        StyleGPT{' '}
+        <div>
+          CLICK ME
+          <div id="login-modal"></div>
+        </div>
+      </div>
       <div>
         <QueryEntryForm onSubmit={handleQuery} />
       </div>
