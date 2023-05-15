@@ -46,7 +46,6 @@ const QueryEntryForm = ({ onSubmit }) => {
           <h5>Model:</h5>
           <select name="model" id="model-dropdown">
             <option value="text-davinci-003">text-davinci-003</option>
-            <option value="code-davinci-002">code-davinci-002</option>
             <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
           </select>
         </div>

@@ -1,36 +1,30 @@
 const { Configuration, OpenAIApi } = require('openai');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
-// html is a string that's formatted html.
-const html = `
-      <body>
-      <h1 class="my-title">Generic Element</h1>
-      <h2 class="my-subtitle">This is a subtitle</h2>
-      <p class="my-paragraph">This is a paragraph.</p>
-      <div class="my-div">Here's a div with stuff in it.<div>
-      </body>
-`;
+function encodeHTMLEntities(rawStr) {
+  return rawStr.replace(/[\u00A0-\u9999<>\&]/g, (i) => `&#${i.charCodeAt(0)};`);
+}
 
-// htmlString removes newline and reduces all spaces by capturing one or more spaces and replacing them with one.
-const htmlString = html.replace(/\n/g, '').replace(/\s+/g, ' ').trim();
+const getHtmlString = (file = 'sample_component.html') => {
+  const templateHtml = fs
+    .readFileSync(
+      path.join(
+        path.resolve(__dirname, '../client/components/iframe_assets/'),
+        file
+      )
+    )
+    .toString();
 
-// descriptor will be the text string that's passed in and will change the query
-// const descriptor = 'to look like cheese';
+  console.log(templateHtml);
+  return encodeHTMLEntities(templateHtml);
+};
 
-// prompt interpolates the input and is passed into runCompletion
-//const prompt = `generate CSS rules for each element of this html ${descriptor} ${htmlString}`;
-
-// make a larger function that includes runcompletion and configuration
-
-// temporary variable to hold open AI key while we figure how to get the the prompt in runcompletion
-//const key = process.env.OPENAI_API_KEY;
-
-// runCompletion calls the API with the necessary inputs
-// descriptor is the input from the user, taken from req.body.prompt
 async function runCompletion(descriptor, key, temp, model) {
   // configuration is where private key is set up
+  const htmlString = getHtmlString();
 
-  console.log(descriptor, key, temp, model);
   const configuration = new Configuration({
     // apiKey: process.env.OPENAI_API_KEY,
     apiKey: key
@@ -38,7 +32,7 @@ async function runCompletion(descriptor, key, temp, model) {
   // OpenAIApi constructor takes in the configuration object.
   const openai = new OpenAIApi(configuration);
 
-  if (model === 'text-davinci-003' || model === 'code-davinci-002') {
+  if (model === 'text-davinci-003') {
     const completion = await openai.createCompletion({
       model: model,
       prompt: `generate CSS rules for each element of this html to look ${descriptor} ${htmlString}`,
@@ -50,7 +44,7 @@ async function runCompletion(descriptor, key, temp, model) {
     console.log('response from chatGPT', completion.data.choices[0].text);
 
     return completion.data.choices[0].text;
-  } else if (model === 'gpt-3.5-turbo') {
+  } else if (model.includes('gpt-3.5-turbo')) {
     const completion = await openai.createChatCompletion({
       model: model,
       messages: [
@@ -67,11 +61,10 @@ async function runCompletion(descriptor, key, temp, model) {
       // temperature set to zero to keep responses consistent
       temperature: Number(temp)
     });
-    console.log(completion);
 
     const resultText = completion.data.choices[0].message.content;
     if (resultText.includes('```')) {
-      return resultText.split('```')[1];
+      return resultText.split('```')[1].trim();
     }
     return resultText;
   }

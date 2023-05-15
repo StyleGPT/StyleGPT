@@ -4,9 +4,24 @@
     <title>User Information Form</title>
   </head>
   <body>
-    <h1 class="my-title">Generic Element</h1>
-    <h2 class="my-subtitle">This is subtitle</h2>
-    <p class="my-paragraph">This is an example of HTML content.</p>
-    <div class="my-div">Here's a div with stuff in it.<div>
-    </body>
+    <h1>User Information Form</h1>
+
+    <p>Please fill out the following form with your information:</p>
+
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" /><br />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" /><br />
+
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" /><br />
+
+      <label for="birthdate">Birthdate:</label>
+      <input type="date" id="birthdate" name="birthdate" /><br />
+
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
 </html>

@@ -75,6 +75,9 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS, status }) => {
       </div>
       <div id="rendered-results" className="result-pane">
         <div className="result-pane-header">Preview:</div>
+        <div id="html-text-editor" style={{ display: 'none' }}>
+          TESTING INLINE DISPLAY
+        </div>
         <iframe id="sample-component-frame" src={contentHtml}></iframe>
       </div>
     </div>
