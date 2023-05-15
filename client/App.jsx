@@ -5,7 +5,7 @@ import './hljs-tokyo-night-dark-custom.css';
 import QueryEntryForm from './components/QueryEntry';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
-import StoredResponse from './components/StoredResponse';
+import Dropdown from './components/Dropdown';
 
 
 const App = () => {
@@ -64,7 +64,7 @@ const App = () => {
       {/* </logInContext.Provider> */}
 
       <div>
-        <StoredResponse />
+        <Dropdown />
       </div>
 
     </div>

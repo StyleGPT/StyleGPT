@@ -35,6 +35,9 @@ app.post('/signup', authController.signup, authController.createToken, (req, res
 // route to handle post requests to '/login' endpoint (user logins)
 app.post('/login', authController.login, authController.createToken, (req, res) => res.send(res.locals.message));
 
+// route to handle get requests to userStyles database
+app.get('/userstyles', stylesController.getStyles, (req, res) => res.send(res.locals.styles));
+
 // route to test authentication 
 // app.get('/testJWT', authController.authenticateToken, (req, res) => res.status(200).send('Access Granted'));
 
