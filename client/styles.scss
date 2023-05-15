@@ -71,6 +71,11 @@ button {
   gap: 5px;
 }
 
+#open-ai-options {
+  display: flex;
+  gap: 20px;
+}
+
 #query-results-display {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -104,6 +109,7 @@ button {
   flex-direction: column;
   min-height: 400px;
   max-height: 50%;
+  max-width: 40vw;
   border-radius: 5px;
   background-color: whitesmoke;
 }
@@ -119,10 +125,9 @@ button {
 
 .code-block {
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: scroll;
   //scrollbar-color: $accent-bkg;
-  max-width: 100%;
-  width: 100%;
+  width: inherit;
   height: inherit;
   max-height: 50%;
   margin: 0px;

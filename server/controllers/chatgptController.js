@@ -10,8 +10,9 @@ chatgptController.query = async (req, res, next) => {
   // Where/how does the prompt for the chatGPT API get pulled in?
   // cssResponse invokes the runCompletion method on chatGPT
   // req.body.prompt, req.body.key will be in there also
+  const { prompt, key, temp, model } = req.body;
   console.log('running chatGPTConroller');
-  res.locals.response = await runCompletion(req.body.prompt, req.body.key);
+  res.locals.response = await runCompletion(prompt, key, temp, model);
   next();
 };
 

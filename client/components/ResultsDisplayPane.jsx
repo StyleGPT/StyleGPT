@@ -20,11 +20,29 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS, status }) => {
 
   useEffect(() => {
     if (contentCSS) {
+      const frame = document.querySelector('#sample-component-frame');
+
+      //If iFrame has a style, remove it
+      if (
+        frame.contentWindow.document
+          .querySelector('head')
+          .querySelector('style')
+      ) {
+        frame.contentWindow.document
+          .querySelector('head')
+          .removeChild(
+            frame.contentWindow.document
+              .querySelector('head')
+              .querySelector('style')
+          );
+
+        console.log('Removed existing style; fetching new style...');
+      }
+
       //Set CSS as iFrame style
       let style = document.createElement('style');
       style.innerHTML = contentCSS;
 
-      const frame = document.querySelector('#sample-component-frame');
       frame.contentWindow.document.querySelector('head').appendChild(style);
 
       //Insert into code frame and add highlightint
@@ -48,7 +66,7 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS, status }) => {
     <div id="query-results-display">
       <div id="result-text" className="result-pane">
         <div className="result-pane-header">CSS:</div>
-        <div id="css-text-loading-overlay" hidden="true">
+        <div id="css-text-loading-overlay">
           <img src={require('../assets/loading.gif')} />
         </div>
         <pre>
@@ -57,7 +75,7 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS, status }) => {
       </div>
       <div id="rendered-results" className="result-pane">
         <div className="result-pane-header">Preview:</div>
-        <iframe id="sample-component-frame" src={contentHtml} sandbox></iframe>
+        <iframe id="sample-component-frame" src={contentHtml}></iframe>
       </div>
     </div>
   );

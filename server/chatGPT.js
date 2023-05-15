@@ -27,23 +27,54 @@ const htmlString = html.replace(/\n/g, '').replace(/\s+/g, ' ').trim();
 
 // runCompletion calls the API with the necessary inputs
 // descriptor is the input from the user, taken from req.body.prompt
-async function runCompletion(descriptor, key) {
+async function runCompletion(descriptor, key, temp, model) {
   // configuration is where private key is set up
+
+  console.log(descriptor, key, temp, model);
   const configuration = new Configuration({
     // apiKey: process.env.OPENAI_API_KEY,
     apiKey: key
   });
   // OpenAIApi constructor takes in the configuration object.
   const openai = new OpenAIApi(configuration);
-  const completion = await openai.createCompletion({
-    model: 'text-davinci-003',
-    prompt: `generate CSS rules for each element of this html to look ${descriptor} ${htmlString}`,
-    max_tokens: 4000,
-    // temperature set to zero to keep responses consistent
-    temperature: 0.5
-  });
-  console.log('response from chatGPT', completion.data.choices[0].text);
-  return completion.data.choices[0].text;
+
+  if (model === 'text-davinci-003' || model === 'code-davinci-002') {
+    const completion = await openai.createCompletion({
+      model: model,
+      prompt: `generate CSS rules for each element of this html to look ${descriptor} ${htmlString}`,
+      max_tokens: 4000,
+      // temperature set to zero to keep responses consistent
+      temperature: Number(temp)
+    });
+
+    console.log('response from chatGPT', completion.data.choices[0].text);
+
+    return completion.data.choices[0].text;
+  } else if (model === 'gpt-3.5-turbo') {
+    const completion = await openai.createChatCompletion({
+      model: model,
+      messages: [
+        {
+          role: 'system',
+          content:
+            'You are a helpful assistant that creates CSS styling rules when provided with HTML code.'
+        },
+        {
+          role: 'user',
+          content: `generate CSS rules for each element of this html to look ${descriptor} ${htmlString}`
+        }
+      ],
+      // temperature set to zero to keep responses consistent
+      temperature: Number(temp)
+    });
+    console.log(completion);
+
+    const resultText = completion.data.choices[0].message.content;
+    if (resultText.includes('```')) {
+      return resultText.split('```')[1];
+    }
+    return resultText;
+  }
 }
 
 // returns the response from the API
