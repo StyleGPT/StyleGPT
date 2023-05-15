@@ -7,6 +7,7 @@ const PORT = 3000;
 // import controllers
 const chatgptController = require('./controllers/chatgptController');
 const authController = require('./controllers/authController');
+const stylesController = require('./controllers/stylesController');
 
 app.use(express.json());
 
