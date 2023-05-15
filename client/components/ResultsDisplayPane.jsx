@@ -3,7 +3,7 @@ import hljs from 'highlight.js/lib/core';
 import css from 'highlight.js/lib/languages/css';
 hljs.registerLanguage('css', css);
 
-const ResultsDisplayPane = ({ contentHtml, contentCSS }) => {
+const ResultsDisplayPane = ({ contentHtml, contentCSS, status }) => {
   const [contentSource, setContentSource] = useState();
 
   useEffect(() => {
@@ -11,6 +11,12 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS }) => {
       setContentSource(contentHtml);
     }
   }, [contentHtml]);
+
+  useEffect(() => {
+    console.log(status);
+    const overlay = document.querySelector('#css-text-loading-overlay');
+    overlay.style.display = status === 'ready' ? 'none' : 'flex';
+  }, [status]);
 
   useEffect(() => {
     if (contentCSS) {
@@ -29,6 +35,12 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS }) => {
         ignoreIllegals: true
       }).value;
       hljs.highlightElement(textDisplay);
+
+      //Remove loading overlay if present
+      const overlay = document.querySelector('#css-text-loading-overlay');
+      if (!overlay.hidden) {
+        overlay.hidden = true;
+      }
     }
   }, [contentCSS]);
 
@@ -36,6 +48,9 @@ const ResultsDisplayPane = ({ contentHtml, contentCSS }) => {
     <div id="query-results-display">
       <div id="result-text" className="result-pane">
         <div className="result-pane-header">CSS:</div>
+        <div id="css-text-loading-overlay" hidden="true">
+          <img src={require('../assets/loading.gif')} />
+        </div>
         <pre>
           <code className="code-block" id="result-css-text"></code>
         </pre>

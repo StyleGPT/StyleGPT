@@ -69,14 +69,11 @@ module.exports = {
           }
         ]
       },
+
       {
-        test: /\.(png|jpg)$/i,
+        test: /\.(png|jpg|gif)$/i,
         type: 'asset/resource',
-        parser: {
-          dataUrlCondition: {
-            maxSize: 10 * 1024 // Inline images under 10KB
-          }
-        },
+
         // Added:
         generator: {
           filename: 'images/[name]-[hash][ext]'

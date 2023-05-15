@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 const QueryEntryForm = ({ onSubmit }) => {
   const onSubmitClick = () => {
     const query = document.querySelector('#msg').value;
-    onSubmit(query);
+    const key = document.querySelector('#api-key').value;
+    onSubmit(query, key);
     document.querySelector('#msg').value = '';
   };
 
@@ -17,6 +18,14 @@ const QueryEntryForm = ({ onSubmit }) => {
         id="msg"
         name="user_message"
         placeholder="...like a block of cheese"
+      ></textarea>
+      <h5>
+        <emph>Please enter your OpenAI API Key (or sign in above)</emph>
+      </h5>
+      <textarea
+        id="api-key"
+        name="api-key"
+        placeholder="Please enter OpenAI API Key"
       ></textarea>
       <div className="button-row">
         <button type="submit" onClick={onSubmitClick}>
