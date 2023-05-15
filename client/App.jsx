@@ -3,11 +3,27 @@ import './styles.scss';
 import ResultsDisplayPane from './components/ResultsDisplayPane';
 import './hljs-tokyo-night-dark-custom.css';
 import QueryEntryForm from './components/QueryEntry';
+import RegistrationForm from './components/RegistrationForm';
+import LoginForm from './components/LoginForm';
+import StoredResponse from './components/StoredResponse';
 
 const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
   const [contentCss, setContentCss] = useState(null);
   const [loginVisible, setLoginVisible] = useState(false);
+
+  useEffect(() => {
+    document.querySelector('#login-modal').style.display = loginVisible
+      ? 'flex'
+      : 'none';
+  });
+  const toggleLogin = () => {
+    if (loginVisible) {
+      setLoginVisible(false);
+    } else {
+      setLoginVisible(true);
+    }
+  };
 
   const handleQuery = (queryText, key, temp, model) => {
     console.log(reqStatus);
@@ -40,9 +56,15 @@ const App = () => {
     <div id="main-app-div">
       <div id="title-text">
         StyleGPT{' '}
-        <div>
-          CLICK ME
-          <div onClick={toggleLogin} id="login-modal">
+        <div id="login-toggle" onClick={toggleLogin}>
+          <div>Sign up</div>
+
+          <div
+            style={{ height: '0px', border: '1pt solid black', width: '90%' }}
+          ></div>
+
+          <div>Log in</div>
+          <div id="login-modal">
             {/* <logInContext.Provider> */}
             <div>
               <RegistrationForm />
@@ -62,6 +84,9 @@ const App = () => {
           contentCSS={contentCss}
           status={reqStatus}
         />
+      </div>
+      <div>
+        <StoredResponse />
       </div>
     </div>
   );

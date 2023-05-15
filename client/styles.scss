@@ -29,7 +29,7 @@ $accent-text: lighten($body-text-default, 50%);
 
 body {
   font-family: 'Raleway', sans-serif;
-  overflow: hidden;
+  overflow-y: scroll;
   margin: 0px;
   //background-color: $outer-bkg;
   background: linear-gradient(
@@ -93,7 +93,18 @@ button {
   background-color: $code-box-bkg;
 }
 
+#login-modal {
+  padding: 15px;
+  position: absolute;
+  flex-direction: column;
+  top: 30px;
+  right: 30px;
+
+  background-color: #303144;
+  color: rgba(0, 0, 0, 1);
+}
 #title-text {
+  position: relative;
   display: flex;
   font-size: 3rem;
   font-weight: 800;
@@ -148,6 +159,21 @@ button {
   height: 100%;
   background-color: $code-box-bkg;
 }
+#login-toggle {
+  font: 0.75rem sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: fit-content;
+  padding: 5px;
+  border-radius: 5px;
+  right: 15px;
+  position: absolute;
+  background-color: lighten($accent-bkg, 50%);
+}
 
 textarea {
   resize: none;
@@ -165,4 +191,3 @@ input:focus::placeholder {
 #query-entry-form {
   margin-bottom: 30px;
 }
-
