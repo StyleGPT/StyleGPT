@@ -3,9 +3,9 @@ import './styles.scss';
 import ResultsDisplayPane from './components/ResultsDisplayPane';
 import './hljs-tokyo-night-dark-custom.css';
 import QueryEntryForm from './components/QueryEntry';
-import RegistrationForm from './components/RegistrationForm';
 import LoginForm from './components/LoginForm';
-import StoredResponse from './components/StoredResponse';
+import RegistrationForm from './components/RegistrationForm';
+import Dropdown from './components/Dropdown';
 
 const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
@@ -85,8 +85,11 @@ const App = () => {
           status={reqStatus}
         />
       </div>
+
+      {/* </logInContext.Provider> */}
+
       <div>
-        <StoredResponse />
+        <Dropdown />
       </div>
     </div>
   );

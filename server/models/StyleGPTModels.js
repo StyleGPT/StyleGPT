@@ -24,7 +24,7 @@ const Users = mongoose.model('users', userSchema);
 
 // Data Model for UserStyles
 const userStylesSchema = new Schema({
-  username: { type: String, required: true},
+  username: { type: String },
   cssStyles: {type: String, required: true},
   timestamp: { type: String, required: true },
   prompt: { type: String },

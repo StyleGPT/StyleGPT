@@ -1,13 +1,26 @@
 import React from 'react';
 import AsyncSelect from 'react-select/async';
+import { useState, useEffect } from 'react';
 
-const StoredResponse = () => {
+
+const Dropdown = () => {
     // sample options. want to link to database 
-    const options = [
-        { value: "cheese", label: "Cheese" },
-        { value: "rainbow", label: "Rainbow" },
-        { value: "party", label: "Party" },
-    ];
+    // const options = [
+    //     { value: "cheese", label: "Cheese" },
+    //     { value: "rainbow", label: "Rainbow" },
+    //     { value: "party", label: "Party" },
+    // ];
+
+    // // get request to userStyles entpoint
+    // useEffect(() => {
+    //     fetch('/userStyles')
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             console.log(data);
+    //             options = data;
+    //         })
+    // })
+
 
     // only load values that match what user types
     const loadOptions = (searchValue, callback) => {
@@ -32,4 +45,4 @@ const StoredResponse = () => {
     );
 };
 
-export default StoredResponse;
+export default Dropdown;
