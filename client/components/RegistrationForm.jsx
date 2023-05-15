@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 
-const LoginForm = () => {
+const RegistrationForm = () => {
 
     const handleRequest = (userInfo) => {
-    return fetch(`/login`, {
+    return fetch(`/signup`, {
         method: 'POST',
         body: userInfo,
         headers: { 'Content-type': 'text/plain' }
     })
         .then((response) => response.text())
-        .then((text) => {
-        if (text === 'logged in') {
-            setIsLoggedIn(true);
-        }
-        })
+        // would we like something here...?
         .catch((err) => {
         console.log(`Received error while processing login request: ${err}`);
         });
@@ -44,12 +40,12 @@ const LoginForm = () => {
                     <label htmlFor='apiKey'>API Key</label>
                     <input type='text' name='apiKey' id='apiKey' value={apiKey} onChange={(e=>setApiKey(e.target.value))}/>
                 </div>
-                <button type='submit'>Login</button>
+                <button type='submit'>Register</button>
             </form>
         </div>
     )
 }
 
-export default LoginForm;
+export default RegistrationForm;
 
 

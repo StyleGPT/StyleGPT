@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 const LoginForm = () => {
-
     const handleRequest = (userInfo) => {
+        console.log('handleRequest test', userInfo)
     return fetch(`/login`, {
         method: 'POST',
         body: userInfo,
@@ -12,6 +12,7 @@ const LoginForm = () => {
         .then((text) => {
         if (text === 'logged in') {
             setIsLoggedIn(true);
+            console.log(isLoggedIn);
         }
         })
         .catch((err) => {
@@ -19,14 +20,15 @@ const LoginForm = () => {
         });
     };
 
-    const [ email, setEmail ] = useState(null);
-    const [ password, setPassword ] = useState(null);
-    const [ dataInput, setDataInput ] = useState(null);
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);
-    const submitThis = () => {
-        const info = {email: email, password: password}
-        setDataInput([info]);
-        handleRequest(dataInput);
+    
+    const submitThis = (event) => {
+        event.preventDefault();
+        const info = {username: email, password: password};
+        console.log(info);
+        handleRequest(info);
     }
 
     return (

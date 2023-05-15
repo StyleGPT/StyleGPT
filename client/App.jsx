@@ -4,6 +4,7 @@ import ResultsDisplayPane from './components/ResultsDisplayPane';
 import './hljs-tokyo-night-dark-custom.css';
 import QueryEntryForm from './components/QueryEntry';
 import LoginForm from './components/LoginForm';
+// import RegistrationForm from './components/RegistrationForm';
 
 const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
@@ -33,6 +34,9 @@ const App = () => {
   return (
     <div id="main-app-div">
       <div id="title-text">StyleGPT</div>
+      <div>
+        {/* <RegistrationForm /> */}
+      </div>
       <div>
         <LoginForm />
       </div>
