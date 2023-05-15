@@ -5,13 +5,15 @@ import './hljs-tokyo-night-dark-custom.css';
 import QueryEntryForm from './components/QueryEntry';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
+import StoredResponse from './components/StoredResponse';
+
 
 const App = () => {
   const [reqStatus, setReqStatus] = useState('ready');
   const [contentCss, setContentCss] = useState(null);
   // const logInContext = createContext();
 
-  const handleQuery = (queryText, key) => {
+  const handleQuery = (queryText, key, temp, model) => {
     console.log(reqStatus);
     if (reqStatus !== 'ready') {
       return window.alert('Please wait for the current request to complete.');
@@ -21,7 +23,9 @@ const App = () => {
       method: 'POST',
       body: JSON.stringify({
         prompt: queryText,
-        key: key
+        key,
+        temp,
+        model
       }),
       headers: { 'Content-type': 'application/json' }
     })
@@ -56,7 +60,13 @@ const App = () => {
           status={reqStatus}
         />
       </div>
+
       {/* </logInContext.Provider> */}
+
+      <div>
+        <StoredResponse />
+      </div>
+
     </div>
   );
 };

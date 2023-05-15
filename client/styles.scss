@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css');
 
 $code-box-bkg: #002451;
 $body-bkg: #1a1b26;
@@ -71,6 +72,11 @@ button {
   gap: 5px;
 }
 
+#open-ai-options {
+  display: flex;
+  gap: 20px;
+}
+
 #query-results-display {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -104,6 +110,7 @@ button {
   flex-direction: column;
   min-height: 400px;
   max-height: 50%;
+  max-width: 40vw;
   border-radius: 5px;
   background-color: whitesmoke;
 }
@@ -119,10 +126,9 @@ button {
 
 .code-block {
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: scroll;
   //scrollbar-color: $accent-bkg;
-  max-width: 100%;
-  width: 100%;
+  width: inherit;
   height: inherit;
   max-height: 50%;
   margin: 0px;

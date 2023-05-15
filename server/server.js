@@ -7,6 +7,7 @@ const PORT = 3000;
 // import controllers
 const chatgptController = require('./controllers/chatgptController');
 const authController = require('./controllers/authController');
+const stylesController = require('./controllers/stylesController');
 
 app.use(express.json());
 
@@ -36,6 +37,9 @@ app.post('/login', authController.login, authController.createToken, (req, res) 
 
 // route to test authentication 
 // app.get('/testJWT', authController.authenticateToken, (req, res) => res.status(200).send('Access Granted'));
+
+// route to add a document to userStyles database
+app.post('/saveStyle', stylesController.saveStyle, (req, res) => res.status(201).send('Document added to database'));
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
