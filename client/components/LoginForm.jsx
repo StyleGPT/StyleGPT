@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { LoginContext } from '../App';
 
 const LoginForm = () => {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const { setIsLoggedIn } = useContext(LoginContext);
 
     const handleRequest = (userData) => {
-        console.log('handleRequest test', userData);
         return fetch(`/login`, {
             method: 'POST',
             body: JSON.stringify(userData),
@@ -34,11 +34,9 @@ const LoginForm = () => {
         <div>
             <form action='' onSubmit={submitThis}>
                 <div>
-                    {/* <label htmlFor='email'>Email</label> */}
                     <input type='text' name='email' id='email' value={email} placeholder='email' onChange={e=>setEmail(e.target.value)}/>
                 </div>
                 <div>
-                    {/* <label htmlFor='password'>Password</label> */}
                     <input type='text' name='password' id='password' value={password} placeholder='password' onChange={(e=>setPassword(e.target.value))}/>
                 </div>
                 <button type='submit'>Login</button>

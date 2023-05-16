@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { LoginContext } from '../App';
+
 
 const QueryEntryForm = ({ onSubmit }) => {
+
+  const { isLoggedIn } = useContext(LoginContext);
+
   useEffect(() => {
     const slider = document.querySelector('#temp-input');
     const sliderDisplay = document.querySelector('#temp-input-display');
@@ -8,6 +13,13 @@ const QueryEntryForm = ({ onSubmit }) => {
       sliderDisplay.innerHTML = this.value;
     };
   }, []);
+
+  useEffect(() => { 
+    if (isLoggedIn) {
+      document.querySelector('#api-key-section').style.display = 'none';
+      document.querySelector('.button-row').style.marginTop = '5px'
+    }
+  });
 
   const onSubmitClick = () => {
     const query = document.querySelector('#msg').value;
@@ -52,16 +64,18 @@ const QueryEntryForm = ({ onSubmit }) => {
           </select>
         </div>
       </div>
-      <h5 style={{ marginTop: '10px', marginBottom: '10px' }}>
-        <em>Please enter your OpenAI API Key (or sign in above)</em>
-      </h5>
-      <input
-        type="text"
-        id="api-key"
-        name="api-key"
-        placeholder="Please enter OpenAI API Key"
-        style={{ marginBottom: '5px', width: '100%' }}
-      ></input>
+      <div id="api-key-section">
+        <h5 style={{ marginTop: '10px', marginBottom: '10px' }}>
+          <em>Please enter your OpenAI API Key (or sign in above)</em>
+        </h5>
+        <input
+          type="text"
+          id="api-key"
+          name="api-key"
+          placeholder="Please enter OpenAI API Key"
+          style={{ marginBottom: '5px', width: '100%' }}
+        ></input>
+      </div>
       <div className="button-row">
         <button type="submit" onClick={onSubmitClick}>
           Submit
