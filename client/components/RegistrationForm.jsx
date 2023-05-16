@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { LoginContext } from '../App';
 
 const RegistrationForm = () => {
 
     const [ username, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ apikey, setApiKey ] = useState('');
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const { setIsLoggedIn } = useContext(LoginContext);
 
     const handleRequest = (userData) => {
         console.log('handleRequest test', userData);
@@ -36,15 +37,12 @@ const RegistrationForm = () => {
         <div>
             <form action='' onSubmit={submitThis}>
                 <div>
-                    {/* <label htmlFor='username'>Email</label> */}
                     <input type='text' name='username' id='username' value={username} placeholder='username' onChange={e=>setEmail(e.target.value)}/>
                 </div>
                 <div>
-                    {/* <label htmlFor='password'>Password</label> */}
                     <input type='text' name='password' id='password' value={password} placeholder='password' onChange={(e=>setPassword(e.target.value))}/>
                 </div>
                 <div>
-                    {/* <label htmlFor='apikey'>API Key</label> */}
                     <input type='text' name='apikey' id='apikey' value={apikey} placeholder='API key' onChange={(e=>setApiKey(e.target.value))}/>
                 </div>
                 <button type='submit'>Register</button>
