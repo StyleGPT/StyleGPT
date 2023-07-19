@@ -32,6 +32,8 @@ npm start
 ```
 This will start the application. You can then interact with the interface to style HTML elements as per your requirements. Just describe the style you want, and let StyleGPT do the rest!
 
+NOTE: you must use your own OpenAI API key to run the application. You can get one [here](https://beta.openai.com/).
+
 ## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. We welcome any contributions you can make to the improvement and development of StyleGPT.
