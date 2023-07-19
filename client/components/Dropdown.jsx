@@ -11,7 +11,7 @@ const Dropdown = () => {
     //     { value: "party", label: "Party" },
     // ];
 
-    // // get request to userStyles entpoint
+    // // // get request to userStyles entpoint
     // useEffect(() => {
     //     fetch('/userStyles')
     //         .then((res) => res.json())
